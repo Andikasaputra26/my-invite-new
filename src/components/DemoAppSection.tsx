@@ -8,7 +8,7 @@ const demos = [
   {
     title: "Undangan Elegant",
     image: "https://source.unsplash.com/400x600/?wedding,elegant",
-    link: "#",
+    link: "/invitation", // 👈 diarahkan ke halaman undangan
   },
   {
     title: "Undangan Modern",
@@ -95,7 +95,6 @@ export default function DemoAppSection() {
                 <h3 className="text-xl font-semibold">{demo.title}</h3>
                 <a
                   href={demo.link}
-                  target="_blank"
                   className="mt-3 inline-block rounded-full bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-md transition-transform duration-300 hover:scale-105"
                 >
                   Lihat Demo

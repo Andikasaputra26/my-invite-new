@@ -4,7 +4,6 @@ import { Montserrat, Great_Vibes } from "next/font/google";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
-import Navbar from "@/components/Navbar";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -30,7 +29,6 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className={montserrat.className}>
-        <Navbar />
         {children}
       </body>
     </html>

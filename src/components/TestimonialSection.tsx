@@ -73,7 +73,6 @@ export default function TestimonialSection() {
           Apa Kata Mereka
         </h2>
 
-        {/* Wrapper dengan perspective untuk efek 3D */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 perspective-[1200px]">
           {testimonials.map((item, i) => (
             <div
