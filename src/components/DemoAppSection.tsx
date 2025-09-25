@@ -1,19 +1,20 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useRouter } from "next/navigation";
 
 const demos = [
   {
     title: "Undangan Elegant",
     image: "https://source.unsplash.com/400x600/?wedding,elegant",
-    link: "/invitation", // 👈 diarahkan ke halaman undangan
+    link: "/invitation", 
   },
   {
     title: "Undangan Modern",
     image: "https://source.unsplash.com/400x600/?wedding,modern",
-    link: "#",
+    link: "https://invite-marry.vercel.app/",
   },
   {
     title: "Undangan Floral",
@@ -29,6 +30,10 @@ const demos = [
 
 export default function DemoAppSection() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedLink, setSelectedLink] = useState<string>("");
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -57,6 +62,19 @@ export default function DemoAppSection() {
     }
   }, []);
 
+  const handleOpenModal = (link: string) => {
+    if (link === "#") return; 
+    setSelectedLink(link);
+    setShowModal(true);
+  };
+
+  const handleGoPage = () => {
+    setShowModal(false);
+    if (selectedLink) {
+      router.push(selectedLink); 
+    }
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -64,7 +82,6 @@ export default function DemoAppSection() {
       className="relative z-10 bg-gradient-to-b from-pink-50 to-purple-50 py-24"
     >
       <div className="mx-auto max-w-6xl px-6 text-center">
-        {/* Heading */}
         <h2 className="mx-auto inline-block rounded-full bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 px-6 py-2 text-sm font-semibold text-white shadow-md">
           DEMO APLIKASI
         </h2>
@@ -73,37 +90,73 @@ export default function DemoAppSection() {
           langsung.
         </p>
 
-        {/* Grid of cards */}
         <div className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {demos.map((demo, i) => (
             <div
               key={i}
               className="demo-card group relative overflow-hidden rounded-2xl bg-white/90 shadow-lg transition hover:-translate-y-2 hover:shadow-2xl"
             >
-              {/* Image */}
               <img
                 src={demo.image}
                 alt={demo.title}
                 className="h-96 w-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
 
-              {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent opacity-70"></div>
 
-              {/* Content */}
               <div className="absolute bottom-0 left-0 right-0 p-6 text-left text-white">
                 <h3 className="text-xl font-semibold">{demo.title}</h3>
-                <a
-                  href={demo.link}
-                  className="mt-3 inline-block rounded-full bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-md transition-transform duration-300 hover:scale-105"
+                <button
+                  onClick={() => handleOpenModal(demo.link)}
+                  className="mt-3 inline-block rounded-full bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-md transition-transform duration-300 cursor-pointer hover:scale-105"
                 >
                   Lihat Demo
-                </a>
+                </button>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-2xl w-[90%] h-[90%] flex flex-col overflow-hidden">
+            {/* Header */}
+            <div className="flex justify-between items-center px-4 py-3 border-b">
+              <h3 className="text-lg font-semibold text-gray-800">Preview Demo</h3>
+              <button
+                onClick={() => setShowModal(false)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="flex-1">
+              <iframe
+                src={selectedLink}
+                className="w-full h-full"
+                title="Preview Demo"
+              />
+            </div>
+
+            <div className="p-4 border-t flex justify-end gap-3">
+              <button
+                onClick={() => setShowModal(false)}
+                className="px-5 py-2 rounded-full border border-gray-400 text-gray-700 hover:bg-gray-100"
+              >
+                Tutup
+              </button>
+              <button
+                onClick={handleGoPage}
+                className="px-5 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 text-white font-semibold shadow-md hover:scale-105 transition-transform"
+              >
+                Buka Halaman Penuh
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
