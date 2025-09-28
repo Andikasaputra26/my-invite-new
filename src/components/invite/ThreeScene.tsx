@@ -13,7 +13,6 @@ export default function ThreeScene() {
 
     if (!mountRef.current) return;
 
-    // === Scene & Camera ===
     const scene = new THREE.Scene();
     scene.background = new THREE.Color("#0b0b1a");
 
@@ -30,13 +29,11 @@ export default function ThreeScene() {
     renderer.setPixelRatio(window.devicePixelRatio);
     mountRef.current.appendChild(renderer.domElement);
 
-    // === Lights ===
     scene.add(new THREE.AmbientLight(0xffffff, 0.5));
     const spot = new THREE.SpotLight(0xffd700, 1.5);
     spot.position.set(5, 10, 10);
     scene.add(spot);
 
-    // === Wedding Rings ===
     const ringGeometry = new THREE.TorusGeometry(1, 0.3, 30, 100);
     const ringMaterial = new THREE.MeshStandardMaterial({
       color: 0xffd700,
@@ -50,7 +47,6 @@ export default function ThreeScene() {
     ring2.position.x = 1.8;
     scene.add(ring1, ring2);
 
-    // === Curtains (two planes) ===
     const curtainMaterial = new THREE.MeshStandardMaterial({
       color: 0xaa3366,
       metalness: 0.1,
@@ -67,7 +63,6 @@ export default function ThreeScene() {
     rightCurtain.position.set(5, 0, 0);
     scene.add(rightCurtain);
 
-    // === Particles ===
     const particlesGeo = new THREE.BufferGeometry();
     const count = 400;
     const pos = new Float32Array(count * 3);
@@ -84,7 +79,6 @@ export default function ThreeScene() {
     const particles = new THREE.Points(particlesGeo, particlesMat);
     scene.add(particles);
 
-    // === GSAP Scroll Animations ===
     gsap.to(camera.position, {
       scrollTrigger: {
         trigger: mountRef.current,
@@ -92,7 +86,7 @@ export default function ThreeScene() {
         end: "bottom bottom",
         scrub: true,
       },
-      z: 6, // zoom in
+      z: 6, 
     });
 
     gsap.to(leftCurtain.position, {
@@ -102,7 +96,7 @@ export default function ThreeScene() {
         end: "bottom center",
         scrub: true,
       },
-      x: -10, // geser ke kiri
+      x: -10, 
     });
 
     gsap.to(rightCurtain.position, {
@@ -112,7 +106,7 @@ export default function ThreeScene() {
         end: "bottom center",
         scrub: true,
       },
-      x: 10, // geser ke kanan
+      x: 10, 
     });
 
     gsap.to(ring1.rotation, {
@@ -135,7 +129,6 @@ export default function ThreeScene() {
       y: -Math.PI * 4,
     });
 
-    // === Resize Handler ===
     const handleResize = () => {
       if (!mountRef.current) return;
       camera.aspect = mountRef.current.clientWidth / mountRef.current.clientHeight;
@@ -144,7 +137,6 @@ export default function ThreeScene() {
     };
     window.addEventListener("resize", handleResize);
 
-    // === Loop ===
     let frameId: number;
     const animate = () => {
       frameId = requestAnimationFrame(animate);
@@ -155,7 +147,6 @@ export default function ThreeScene() {
     };
     animate();
 
-    // === Cleanup ===
     return () => {
       cancelAnimationFrame(frameId);
       window.removeEventListener("resize", handleResize);

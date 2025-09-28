@@ -119,44 +119,55 @@ export default function DemoAppSection() {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl shadow-2xl w-[90%] h-[90%] flex flex-col overflow-hidden">
-            {/* Header */}
-            <div className="flex justify-between items-center px-4 py-3 border-b">
-              <h3 className="text-lg font-semibold text-gray-800">Preview Demo</h3>
-              <button
-                onClick={() => setShowModal(false)}
-                className="text-gray-500 hover:text-gray-700"
-              >
-                ✕
-              </button>
-            </div>
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+        <div className="bg-white rounded-2xl shadow-2xl w-[90%] h-[90%] flex flex-col items-center justify-center">
+          
+          {/* Header */}
+          <div className="flex justify-between items-center px-4 py-3 border-b w-full">
+            <h3 className="text-lg font-semibold text-gray-800">Preview Demo</h3>
+            <button
+              onClick={() => setShowModal(false)}
+              className="text-gray-500 hover:text-gray-700"
+            >
+              ✕
+            </button>
+          </div>
 
-            <div className="flex-1">
+          {/* Smartphone frame */}
+          <div className="flex-1 flex items-center justify-center bg-gray-100">
+            <div className="relative bg-black rounded-[2.5rem] shadow-2xl p-4"
+                style={{ width: "375px", height: "812px" }}>
+              {/* notch / kamera */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-6 bg-black rounded-b-2xl"></div>
+
+              {/* iframe konten */}
               <iframe
                 src={selectedLink}
-                className="w-full h-full"
                 title="Preview Demo"
+                className="w-full h-full rounded-[2rem] bg-white"
               />
             </div>
+          </div>
 
-            <div className="p-4 border-t flex justify-end gap-3">
-              <button
-                onClick={() => setShowModal(false)}
-                className="px-5 py-2 rounded-full border border-gray-400 text-gray-700 hover:bg-gray-100"
-              >
-                Tutup
-              </button>
-              <button
-                onClick={handleGoPage}
-                className="px-5 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 text-white font-semibold shadow-md hover:scale-105 transition-transform"
-              >
-                Buka Halaman Penuh
-              </button>
-            </div>
+          {/* Footer */}
+          <div className="p-4 border-t w-full flex justify-end gap-3">
+            <button
+              onClick={() => setShowModal(false)}
+              className="px-5 py-2 rounded-full border border-gray-400 text-gray-700 hover:bg-gray-100"
+            >
+              Tutup
+            </button>
+            <button
+              onClick={handleGoPage}
+              className="px-5 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 text-white font-semibold shadow-md hover:scale-105 transition-transform"
+            >
+              Buka Halaman Penuh
+            </button>
           </div>
         </div>
-      )}
+      </div>
+    )}
+
     </section>
   );
 }
