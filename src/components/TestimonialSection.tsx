@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import Image from "next/image";
 
 type TestimonialItem = {
   name: string;
@@ -40,30 +41,25 @@ export default function TestimonialSection() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       cardsRef.current.forEach((card, i) => {
-        if (card) {
-          gsap.fromTo(
-            card,
-            {
-              opacity: 0,
-              y: 50,
-              rotateY: -30,
-              scale: 0.9,
-            },
-            {
-              opacity: 1,
-              y: 0,
-              rotateY: 0,
-              scale: 1,
-              duration: 1,
-              delay: i * 0.3,
-              ease: "power3.out",
-            }
-          );
-        }
+        if (!card) return;
+
+        gsap.fromTo(
+          card,
+          { opacity: 0, y: 50, rotateY: -30, scale: 0.9 },
+          {
+            opacity: 1,
+            y: 0,
+            rotateY: 0,
+            scale: 1,
+            duration: 1,
+            delay: i * 0.3,
+            ease: "power3.out",
+          }
+        );
       });
     });
 
-    return () => ctx.revert(); // cleanup untuk strict mode
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -77,18 +73,18 @@ export default function TestimonialSection() {
           {testimonials.map((item, i) => (
             <div
               key={i}
-              ref={(el) => {
-                cardsRef.current[i] = el;
-              }}
+              ref={(el) => (cardsRef.current[i] = el)}
               className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl p-6 flex flex-col items-center text-center transition-transform duration-500 transform-gpu hover:rotate-y-6 hover:translate-z-4 hover:scale-105"
               style={{ transformStyle: "preserve-3d" }}
             >
-              <img
+              <Image
                 src={item.avatar}
                 alt={item.name}
-                className="w-20 h-20 rounded-full mb-4 border-4 border-white/20 shadow-lg"
+                width={80}
+                height={80}
+                className="rounded-full mb-4 border-4 border-white/20 shadow-lg object-cover"
               />
-              <p className="text-lg italic mb-4">"{item.message}"</p>
+              <p className="text-lg italic mb-4">&quot;{item.message}&quot;</p>
               <h3 className="font-semibold text-xl">{item.name}</h3>
               <span className="text-sm text-gray-400">{item.role}</span>
             </div>
