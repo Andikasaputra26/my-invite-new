@@ -48,7 +48,6 @@ export default function MakeOrder() {
     });
   }, []);
 
-  // Animasi buka/tutup
   useEffect(() => {
     contentRefs.current.forEach((ref, i) => {
       if (ref) {
@@ -65,7 +64,6 @@ export default function MakeOrder() {
   return (
     <section className="relative z-10 bg-gradient-to-b from-pink-50 to-purple-50 py-20">
       <div className="mx-auto max-w-4xl px-6">
-        {/* Heading */}
         <h2 className="mx-auto block w-fit rounded-full bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 px-6 py-2 text-sm font-semibold text-white shadow-md">
           CARA ORDER UNDANGAN DIGITAL
         </h2>
@@ -76,14 +74,12 @@ export default function MakeOrder() {
           melakukan pemesanan.
         </p>
 
-        {/* Accordion */}
         <div className="mt-12 space-y-6">
           {steps.map((step, i) => (
             <div
               key={i}
               className="rounded-xl border border-gray-200 bg-white/90 shadow-md transition hover:shadow-lg"
             >
-              {/* Header */}
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 className="flex w-full items-center justify-between px-6 py-5 text-left font-semibold text-gray-800"
@@ -96,7 +92,6 @@ export default function MakeOrder() {
                 )}
               </button>
 
-              {/* Content */}
               <div
                 ref={(el) => {
                   if (el) contentRefs.current[i] = el;

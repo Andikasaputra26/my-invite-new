@@ -72,7 +72,6 @@ export default function PricingSection() {
       className="relative z-10 bg-gradient-to-b from-pink-50 to-purple-50 py-20"
     >
       <div className="mx-auto max-w-6xl px-6 text-center">
-        {/* Heading */}
         <div className="text-center">
           <h2 className="inline-block rounded-full bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 px-6 py-2 text-sm font-semibold text-white shadow-md">
             PILIH PAKET TERBAIKMU
@@ -112,7 +111,6 @@ export default function PricingSection() {
                 ))}
               </ul>
 
-              {/* CTA Button */}
               <button className="mt-8 w-full rounded-full bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 px-6 py-3 font-semibold text-white shadow-lg transition-transform duration-300 hover:scale-110 hover:shadow-xl">
                 Pilih Paket
               </button>
