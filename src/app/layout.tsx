@@ -11,10 +11,6 @@ const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
-const greatVibes = Great_Vibes({
-  subsets: ["latin"],
-  weight: ["400"],
-});
 
 export const metadata: Metadata = {
   title: "Undangan Digital Elegan",
@@ -28,9 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id">
-      <body className={montserrat.className}>
-        {children}
-      </body>
+      <body className={montserrat.className}>{children}</body>
     </html>
   );
 }

@@ -25,7 +25,10 @@ export default function ThreeScene() {
     camera.position.set(0, 0, 12);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
+    renderer.setSize(
+      mountRef.current.clientWidth,
+      mountRef.current.clientHeight
+    );
     renderer.setPixelRatio(window.devicePixelRatio);
     mountRef.current.appendChild(renderer.domElement);
 
@@ -86,7 +89,7 @@ export default function ThreeScene() {
         end: "bottom bottom",
         scrub: true,
       },
-      z: 6, 
+      z: 6,
     });
 
     gsap.to(leftCurtain.position, {
@@ -96,7 +99,7 @@ export default function ThreeScene() {
         end: "bottom center",
         scrub: true,
       },
-      x: -10, 
+      x: -10,
     });
 
     gsap.to(rightCurtain.position, {
@@ -106,7 +109,7 @@ export default function ThreeScene() {
         end: "bottom center",
         scrub: true,
       },
-      x: 10, 
+      x: 10,
     });
 
     gsap.to(ring1.rotation, {
@@ -131,9 +134,13 @@ export default function ThreeScene() {
 
     const handleResize = () => {
       if (!mountRef.current) return;
-      camera.aspect = mountRef.current.clientWidth / mountRef.current.clientHeight;
+      camera.aspect =
+        mountRef.current.clientWidth / mountRef.current.clientHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
+      renderer.setSize(
+        mountRef.current.clientWidth,
+        mountRef.current.clientHeight
+      );
     };
     window.addEventListener("resize", handleResize);
 
@@ -150,7 +157,7 @@ export default function ThreeScene() {
     return () => {
       cancelAnimationFrame(frameId);
       window.removeEventListener("resize", handleResize);
-      ScrollTrigger.kill();
+      ScrollTrigger.getAll().forEach((st) => st.kill());
       if (mountRef.current?.contains(renderer.domElement)) {
         mountRef.current.removeChild(renderer.domElement);
       }
