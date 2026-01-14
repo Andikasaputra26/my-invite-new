@@ -97,11 +97,15 @@ export default function DemoAppSection() {
               key={i}
               className="demo-card group relative overflow-hidden rounded-2xl bg-white/90 shadow-lg transition hover:-translate-y-2 hover:shadow-2xl"
             >
-              <Image
-                src={demo.image}
-                alt={demo.title}
-                className="h-96 w-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
+              <div className="relative h-96 w-full">
+                <Image
+                  src={demo.image}
+                  alt={demo.title}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
 
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent opacity-70"></div>
 
