@@ -71,9 +71,11 @@ export default function TestimonialSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 perspective-[1200px]">
           {testimonials.map((item, i) => (
-            <div
+           <div
               key={i}
-              ref={(el) => (cardsRef.current[i] = el)}
+              ref={(el) => {
+                cardsRef.current[i] = el;
+              }}
               className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl p-6 flex flex-col items-center text-center transition-transform duration-500 transform-gpu hover:rotate-y-6 hover:translate-z-4 hover:scale-105"
               style={{ transformStyle: "preserve-3d" }}
             >
