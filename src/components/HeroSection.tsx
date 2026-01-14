@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import Image from "next/image";
 
 // Helper untuk pecah teks jadi span per kata
 function splitTextToWords(text: string) {
@@ -158,7 +159,7 @@ export default function HeroSection() {
         className="absolute bottom-20 right-10 h-40 w-40 rounded-full bg-purple-500/40 blur-3xl"
       ></div>
 
-      <img
+      <Image
         ref={(el) => {
           if (el) floatRefs.current[0] = el;
         }}
@@ -166,7 +167,7 @@ export default function HeroSection() {
         alt="ring"
         className="absolute top-32 left-1/4 h-12 w-12 rounded-full object-cover shadow-lg"
       />
-      <img
+      <Image
         ref={(el) => {
           if (el) floatRefs.current[1] = el;
         }}
@@ -174,7 +175,7 @@ export default function HeroSection() {
         alt="rose"
         className="absolute bottom-32 right-1/4 h-14 w-14 rounded-full object-cover shadow-lg"
       />
-      <img
+      <Image
         ref={(el) => {
           if (el) floatRefs.current[2] = el;
         }}

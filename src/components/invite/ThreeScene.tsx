@@ -11,26 +11,24 @@ export default function ThreeScene() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    if (!mountRef.current) return;
+    const mount = mountRef.current;
+    if (!mount) return;
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color("#0b0b1a");
 
     const camera = new THREE.PerspectiveCamera(
       60,
-      mountRef.current.clientWidth / mountRef.current.clientHeight,
+      mount.clientWidth / mount.clientHeight,
       0.1,
       1000
     );
     camera.position.set(0, 0, 12);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(
-      mountRef.current.clientWidth,
-      mountRef.current.clientHeight
-    );
+    renderer.setSize(mount.clientWidth, mount.clientHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
-    mountRef.current.appendChild(renderer.domElement);
+    mount.appendChild(renderer.domElement);
 
     scene.add(new THREE.AmbientLight(0xffffff, 0.5));
     const spot = new THREE.SpotLight(0xffd700, 1.5);
@@ -43,6 +41,7 @@ export default function ThreeScene() {
       metalness: 1,
       roughness: 0.2,
     });
+
     const ring1 = new THREE.Mesh(ringGeometry, ringMaterial);
     const ring2 = new THREE.Mesh(ringGeometry, ringMaterial);
     ring1.rotation.set(Math.PI / 3, 0, 0);
@@ -73,18 +72,20 @@ export default function ThreeScene() {
       pos[i] = (Math.random() - 0.5) * 20;
     }
     particlesGeo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+
     const particlesMat = new THREE.PointsMaterial({
       color: 0xffffff,
       size: 0.05,
       transparent: true,
       opacity: 0.6,
     });
+
     const particles = new THREE.Points(particlesGeo, particlesMat);
     scene.add(particles);
 
     gsap.to(camera.position, {
       scrollTrigger: {
-        trigger: mountRef.current,
+        trigger: mount,
         start: "top top",
         end: "bottom bottom",
         scrub: true,
@@ -94,7 +95,7 @@ export default function ThreeScene() {
 
     gsap.to(leftCurtain.position, {
       scrollTrigger: {
-        trigger: mountRef.current,
+        trigger: mount,
         start: "top top",
         end: "bottom center",
         scrub: true,
@@ -104,7 +105,7 @@ export default function ThreeScene() {
 
     gsap.to(rightCurtain.position, {
       scrollTrigger: {
-        trigger: mountRef.current,
+        trigger: mount,
         start: "top top",
         end: "bottom center",
         scrub: true,
@@ -114,7 +115,7 @@ export default function ThreeScene() {
 
     gsap.to(ring1.rotation, {
       scrollTrigger: {
-        trigger: mountRef.current,
+        trigger: mount,
         start: "top top",
         end: "bottom bottom",
         scrub: true,
@@ -124,7 +125,7 @@ export default function ThreeScene() {
 
     gsap.to(ring2.rotation, {
       scrollTrigger: {
-        trigger: mountRef.current,
+        trigger: mount,
         start: "top top",
         end: "bottom bottom",
         scrub: true,
@@ -133,14 +134,9 @@ export default function ThreeScene() {
     });
 
     const handleResize = () => {
-      if (!mountRef.current) return;
-      camera.aspect =
-        mountRef.current.clientWidth / mountRef.current.clientHeight;
+      camera.aspect = mount.clientWidth / mount.clientHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(
-        mountRef.current.clientWidth,
-        mountRef.current.clientHeight
-      );
+      renderer.setSize(mount.clientWidth, mount.clientHeight);
     };
     window.addEventListener("resize", handleResize);
 
@@ -158,9 +154,11 @@ export default function ThreeScene() {
       cancelAnimationFrame(frameId);
       window.removeEventListener("resize", handleResize);
       ScrollTrigger.getAll().forEach((st) => st.kill());
-      if (mountRef.current?.contains(renderer.domElement)) {
-        mountRef.current.removeChild(renderer.domElement);
+
+      if (mount.contains(renderer.domElement)) {
+        mount.removeChild(renderer.domElement);
       }
+
       renderer.dispose();
       ringGeometry.dispose();
       ringMaterial.dispose();

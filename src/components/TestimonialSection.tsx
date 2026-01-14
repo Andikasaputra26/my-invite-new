@@ -71,7 +71,7 @@ export default function TestimonialSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 perspective-[1200px]">
           {testimonials.map((item, i) => (
-           <div
+            <div
               key={i}
               ref={(el) => {
                 cardsRef.current[i] = el;
@@ -86,7 +86,11 @@ export default function TestimonialSection() {
                 height={80}
                 className="rounded-full mb-4 border-4 border-white/20 shadow-lg object-cover"
               />
-              <p className="text-lg italic mb-4">&quot;{item.message}&quot;</p>
+
+              <p className="text-lg italic mb-4">
+                &ldquo;{item.message}&rdquo;
+              </p>
+
               <h3 className="font-semibold text-xl">{item.name}</h3>
               <span className="text-sm text-gray-400">{item.role}</span>
             </div>

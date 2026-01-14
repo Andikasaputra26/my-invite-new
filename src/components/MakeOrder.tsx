@@ -36,18 +36,6 @@ export default function MakeOrder() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Set awal
-  useEffect(() => {
-    contentRefs.current.forEach((ref, i) => {
-      if (ref) {
-        gsap.set(ref, {
-          height: i === openIndex ? "auto" : 0,
-          opacity: i === openIndex ? 1 : 0,
-        });
-      }
-    });
-  }, []);
-
   useEffect(() => {
     contentRefs.current.forEach((ref, i) => {
       if (ref) {
