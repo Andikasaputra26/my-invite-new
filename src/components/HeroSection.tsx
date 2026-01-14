@@ -165,22 +165,30 @@ export default function HeroSection() {
         }}
         src="https://source.unsplash.com/80x80/?wedding,ring"
         alt="ring"
+        width={48}
+        height={48}
         className="absolute top-32 left-1/4 h-12 w-12 rounded-full object-cover shadow-lg"
       />
+
       <Image
         ref={(el) => {
           if (el) floatRefs.current[1] = el;
         }}
         src="https://source.unsplash.com/80x80/?flowers,rose"
         alt="rose"
+        width={56}
+        height={56}
         className="absolute bottom-32 right-1/4 h-14 w-14 rounded-full object-cover shadow-lg"
       />
+
       <Image
         ref={(el) => {
           if (el) floatRefs.current[2] = el;
         }}
         src="https://source.unsplash.com/80x80/?love,heart"
         alt="heart"
+        width={40}
+        height={40}
         className="absolute top-1/3 right-20 h-10 w-10 rounded-full object-cover shadow-lg"
       />
 
