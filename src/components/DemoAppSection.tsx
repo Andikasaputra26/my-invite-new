@@ -7,11 +7,11 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 const demos = [
-  {
-    title: "Undangan Elegant",
-    image: "https://source.unsplash.com/400x600/?wedding,elegant",
-    link: "/invitation",
-  },
+  // {
+  //   title: "Undangan Elegant",
+  //   image: "https://source.unsplash.com/400x600/?wedding,elegant",
+  //   link: "/invitation",
+  // },
   {
     title: "Undangan Modern",
     image: "https://source.unsplash.com/400x600/?wedding,modern",
@@ -19,7 +19,7 @@ const demos = [
   },
   {
     title: "Undangan Floral",
-    image: "https://source.unsplash.com/400x600/?wedding,flowers",
+    image: "https://inwedding.vercel.app/",
     link: "#",
   },
   {
@@ -126,7 +126,6 @@ export default function DemoAppSection() {
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
           <div className="bg-white rounded-2xl shadow-2xl w-[90%] h-[90%] flex flex-col items-center justify-center">
-            {/* Header */}
             <div className="flex justify-between items-center px-4 py-3 border-b w-full">
               <h3 className="text-lg font-semibold text-gray-800">
                 Preview Demo
@@ -139,16 +138,13 @@ export default function DemoAppSection() {
               </button>
             </div>
 
-            {/* Smartphone frame */}
             <div className="flex-1 flex items-center justify-center bg-gray-100">
               <div
                 className="relative bg-black rounded-[2.5rem] shadow-2xl p-4"
                 style={{ width: "375px", height: "812px" }}
               >
-                {/* notch / kamera */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-6 bg-black rounded-b-2xl"></div>
 
-                {/* iframe konten */}
                 <iframe
                   src={selectedLink}
                   title="Preview Demo"
@@ -157,7 +153,6 @@ export default function DemoAppSection() {
               </div>
             </div>
 
-            {/* Footer */}
             <div className="p-4 border-t w-full flex justify-end gap-3">
               <button
                 onClick={() => setShowModal(false)}

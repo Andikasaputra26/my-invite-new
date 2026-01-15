@@ -1,25 +1,49 @@
 "use client";
 
-import ThreeScene from "@/components/invite/ThreeScene";
+import { JSX, Suspense, useState } from "react";
 
-export default function InvitationPage() {
+import Cover from "./components/Cover";
+import Hero from "./components/Hero";
+import Couple from "./components/Couple";
+import Profile from "./components/Profile";
+import Event from "./components/Event";
+import Gallery from "./components/Gallery";
+import Location from "./components/Location";
+import RSVP from "./components/RSVP";
+import Footer from "./components/Footer";
+import MusicButton from "./components/MusicButton";
+import FloatingFlowers from "./components/FloatingFlowers";
+import SmoothScroll from "./components/SmoothScroll";
+
+export default function Home(): JSX.Element {
+  const [opened, setOpened] = useState<boolean>(false);
+
   return (
-    <main className="relative bg-gradient-to-b from-pink-100 to-white text-gray-800 overflow-hidden">
-      <section className="relative h-screen w-full">
-        <ThreeScene />
-        <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-center text-white z-10">
-          <h1 className="text-5xl md:text-7xl font-bold mb-4 drop-shadow-lg">
-            Andi & Citra
-          </h1>
-          <p className="text-lg md:text-2xl">Akan melangsungkan pernikahan</p>
-          <p className="mt-6 text-xl">12 Desember 2025</p>
-        </div>
-      </section>
+    <>
+      <SmoothScroll />
 
-      <section className="py-20 text-center">
-        <h2 className="text-3xl font-bold mb-6">Detail Acara</h2>
-        <p>12 Desember 2025 | Jakarta</p>
-      </section>
-    </main>
+      {!opened && (
+        <Suspense fallback={null}>
+          <Cover onOpen={() => setOpened(true)} />
+        </Suspense>
+      )}
+
+      <main
+        className={`transition-all duration-[1500ms] ease-out ${
+          opened ? "opacity-100 translate-y-0" : "opacity-0 translate-y-24"
+        }`}
+      >
+        <Hero />
+        <Couple />
+        <Profile />
+        <Event />
+        <Gallery />
+        <Location />
+        <RSVP />
+        <Footer />
+      </main>
+
+      <MusicButton />
+    </>
   );
 }
