@@ -1,6 +1,6 @@
 "use client";
 
-import { JSX, Suspense, useEffect, useState } from "react";
+import { JSX, Suspense, useState } from "react";
 
 import Cover from "./components/Cover";
 import Hero from "./components/Hero";
@@ -13,26 +13,12 @@ import Footer from "./components/Footer";
 import MusicButton from "./components/MusicButton";
 import SmoothScroll from "./components/SmoothScroll";
 import ScrollReveal from "./components/ScrollReveal";
-import ProfileCard from "./components/ProfileCard";
 import GroomCard from "./components/GroomCard";
 import BrideCard from "./components/BrideCard";
-
-const images = [
-  "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
-  "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-  "https://images.unsplash.com/photo-1519681393784-d120267933ba",
-];
+import TiltCard from "./components/TiltCard";
 
 export default function Home(): JSX.Element {
   const [opened, setOpened] = useState<boolean>(false);
-  const [img1, setImg1] = useState<string | null>(null);
-  const [img2, setImg2] = useState<string | null>(null);
-
-  useEffect(() => {
-    const shuffled = [...images].sort(() => 0.5 - Math.random());
-    setImg1(shuffled[0]);
-    setImg2(shuffled[1] ?? shuffled[0]);
-  }, []);
 
   return (
     <>
@@ -55,13 +41,17 @@ export default function Home(): JSX.Element {
           <Couple />
         </ScrollReveal>
 
-         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 max-w-5xl mx-auto px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 max-w-5xl mx-auto px-6">
           <ScrollReveal>
-            <GroomCard />
+            <TiltCard>
+              <GroomCard />
+            </TiltCard>
           </ScrollReveal>
 
           <ScrollReveal>
-            <BrideCard />
+            <TiltCard>
+              <BrideCard />
+            </TiltCard>
           </ScrollReveal>
         </div>
 
@@ -70,7 +60,9 @@ export default function Home(): JSX.Element {
         </ScrollReveal>
 
         <ScrollReveal>
-          <Gallery />
+          <TiltCard>
+            <Gallery />
+          </TiltCard>
         </ScrollReveal>
 
         <ScrollReveal>
