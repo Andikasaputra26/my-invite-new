@@ -44,44 +44,42 @@ export default function Hero() {
 
     const ctx = gsap.context(() => {
       // INTRO
-      const intro = gsap.timeline({ delay: 0.2 });
+      const intro = gsap.timeline({ delay: 0.4 });
 
-    intro
-      .from(".hero-bg", {
-        scale: 1.2,
-        opacity: 0,
-        duration: 1.6,
-        ease: "power3.out",
-      })
-      .from(
-        ".char",
-        {
-          y: 120,
-          opacity: 0,
-          rotateX: 90,
-          transformOrigin: "50% 50% -40",
-          filter: "blur(6px)",
-          duration: 1,
-          stagger: {
-            each: 0.035,
-            from: "start",
-          },
-          ease: "back.out(1.8)",
-        },
-        "-=0.9"
-      )
-      .from(
-        ".hero-item:not(.hero-title)",
-        {
-          opacity: 0,
-          y: 50,
-          filter: "blur(4px)",
-          duration: 0.9,
-          stagger: 0.2,
-          ease: "power3.out",
-        },
-        "-=0.6"
-      );
+intro
+  .from(".hero-bg", {
+    scale: 1.15,
+    opacity: 0,
+    duration: 1.6,
+    ease: "power3.out",
+  })
+  .from(
+    ".char",
+    {
+      opacity: 0,
+      y: 6,
+      filter: "blur(4px)",
+      duration: 0.25,
+      stagger: {
+        each: 0.06,
+        from: "start",
+      },
+      ease: "power1.out",
+    },
+    "-=0.8"
+  )
+  .from(
+    ".hero-item:not(.hero-title)",
+    {
+      opacity: 0,
+      y: 30,
+      filter: "blur(4px)",
+      duration: 0.8,
+      stagger: 0.2,
+      ease: "power2.out",
+    },
+    "-=0.4"
+  );
 
       // SCROLL
       const scrollTl = gsap.timeline({
@@ -140,7 +138,7 @@ export default function Hero() {
           WE ARE GETTING MARRIED
         </p>
 
-        <h1 className="hero-item hero-title text-5xl md:text-7xl font-bold mb-6 leading-tight">
+        <h1 className="hero-item hero-title font-[cursive] text-5xl md:text-7xl font-bold mb-6 leading-tight">
           <SplitText text="Risky Santoso" className="block" />
           <SplitText text="& Nisa Wardani" className="block" />
         </h1>
