@@ -44,37 +44,44 @@ export default function Hero() {
 
     const ctx = gsap.context(() => {
       // INTRO
-      const intro = gsap.timeline();
+      const intro = gsap.timeline({ delay: 0.2 });
 
-      intro
-        .from(".hero-bg", {
-          scale: 1.15,
+    intro
+      .from(".hero-bg", {
+        scale: 1.2,
+        opacity: 0,
+        duration: 1.6,
+        ease: "power3.out",
+      })
+      .from(
+        ".char",
+        {
+          y: 120,
           opacity: 0,
-          duration: 1.4,
+          rotateX: 90,
+          transformOrigin: "50% 50% -40",
+          filter: "blur(6px)",
+          duration: 1,
+          stagger: {
+            each: 0.035,
+            from: "start",
+          },
+          ease: "back.out(1.8)",
+        },
+        "-=0.9"
+      )
+      .from(
+        ".hero-item:not(.hero-title)",
+        {
+          opacity: 0,
+          y: 50,
+          filter: "blur(4px)",
+          duration: 0.9,
+          stagger: 0.2,
           ease: "power3.out",
-        })
-        .from(
-          ".char",
-          {
-            y: 80,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.03,
-            ease: "power3.out",
-          },
-          "-=0.6"
-        )
-        .from(
-          ".hero-item:not(.hero-title)",
-          {
-            opacity: 0,
-            y: 40,
-            duration: 0.8,
-            stagger: 0.15,
-            ease: "power3.out",
-          },
-          "-=0.4"
-        );
+        },
+        "-=0.6"
+      );
 
       // SCROLL
       const scrollTl = gsap.timeline({
