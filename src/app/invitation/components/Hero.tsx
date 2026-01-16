@@ -1,76 +1,144 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { JSX } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "../lib/gsap";
+import Image from "next/image";
 
-export default function Hero(): JSX.Element {
+const backgrounds = [
+  "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
+  "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+  "https://images.unsplash.com/photo-1519681393784-d120267933ba",
+];
+
+function SplitText({
+  text,
+  className,
+}: {
+  text: string;
+  className?: string;
+}) {
+  return (
+    <span className={`inline-block overflow-hidden ${className || ""}`}>
+      {text.split("").map((char, i) => (
+        <span key={i} className="char inline-block">
+          {char === " " ? "\u00A0" : char}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+export default function Hero() {
   const ref = useRef<HTMLElement | null>(null);
+  const [bg, setBg] = useState<string | null>(null);
+
+  // pilih background hanya di client
+  useEffect(() => {
+    const random =
+      backgrounds[Math.floor(Math.random() * backgrounds.length)];
+    setBg(random);
+  }, []);
 
   useEffect(() => {
+    if (!ref.current || !bg) return;
+
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        defaults: { ease: "power3.out" },
-      });
+      // INTRO
+      const intro = gsap.timeline();
 
-      tl.from(".flower-stem", {
-        scaleY: 0,
-        transformOrigin: "bottom center",
-        duration: 1,
-      })
-
+      intro
+        .from(".hero-bg", {
+          scale: 1.15,
+          opacity: 0,
+          duration: 1.4,
+          ease: "power3.out",
+        })
         .from(
-          ".flower-bloom",
+          ".char",
           {
-            scale: 0,
+            y: 80,
             opacity: 0,
-            duration: 0.6,
+            duration: 0.8,
+            stagger: 0.03,
+            ease: "power3.out",
+          },
+          "-=0.6"
+        )
+        .from(
+          ".hero-item:not(.hero-title)",
+          {
+            opacity: 0,
+            y: 40,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power3.out",
           },
           "-=0.4"
-        )
+        );
 
-        .from(
-          ".hero-item",
+      // SCROLL
+      const scrollTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top top",
+          end: "+=160%",
+          scrub: true,
+          pin: true,
+          pinSpacing: false,
+        },
+      });
+
+      scrollTl
+        .to(".hero-bg", {
+          scale: 1.3,
+          y: 160,
+          ease: "none",
+        })
+        .to(
+          ".hero-content",
           {
             opacity: 0,
-            y: 60,
-            duration: 1,
-            stagger: 0.2,
+            y: -200,
+            ease: "none",
           },
-          "-=0.2"
+          0
         );
     }, ref);
 
     return () => ctx.revert();
-  }, []);
+  }, [bg]);
 
   return (
     <section
       ref={ref}
-      className="relative min-h-screen flex items-center justify-center text-center bg-slate-950 text-slate-100 px-6 overflow-hidden"
+      className="relative min-h-screen overflow-hidden flex items-center justify-center text-center text-white"
     >
-      <div className="absolute left-8 bottom-0 flex flex-col items-center">
-        <span className="flower-bloom text-slate-200 text-xl mb-2">❀</span>
-        <span className="flower-stem w-[1px] h-40 bg-slate-400/40" />
+      {/* Background */}
+      <div className="hero-bg absolute inset-0 -z-10">
+        {bg && (
+          <Image
+            src={bg}
+            alt="Hero"
+            fill
+            priority
+            className="object-cover"
+          />
+        )}
+        <div className="absolute inset-0 bg-black/40" />
       </div>
 
-      <div className="absolute right-8 bottom-0 flex flex-col items-center">
-        <span className="flower-bloom text-slate-200 text-xl mb-2">❀</span>
-        <span className="flower-stem w-[1px] h-40 bg-slate-400/40" />
-      </div>
-
-      <div className="relative z-10">
-        <p className="hero-item tracking-[3px] text-sm opacity-70 mb-4">
+      {/* Content */}
+      <div className="hero-content px-6">
+        <p className="hero-item tracking-[3px] text-sm opacity-80 mb-4">
           WE ARE GETTING MARRIED
         </p>
 
-        <h1 className="hero-item text-5xl md:text-7xl font-bold mb-6">
-          Risky Santoso & Nisa Wardani
+        <h1 className="hero-item hero-title text-5xl md:text-7xl font-bold mb-6 leading-tight">
+          <SplitText text="Risky Santoso" className="block" />
+          <SplitText text="& Nisa Wardani" className="block" />
         </h1>
 
-        <div className="hero-item w-20 h-[1px] bg-slate-400/40 mx-auto mb-6" />
-
-        <p className="hero-item text-lg tracking-wide opacity-80">
+        <p className="hero-item text-lg opacity-80">
           Sabtu, 20 Juni 2026
         </p>
       </div>

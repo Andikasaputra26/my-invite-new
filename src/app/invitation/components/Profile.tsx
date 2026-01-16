@@ -90,37 +90,55 @@ export default function Profile(): JSX.Element {
       </div>
 
       <div className="grid md:grid-cols-2 gap-16 max-w-5xl mx-auto px-6">
-        {people.map((p) => (
-          <div
-            key={p.name}
-            className="profile-card relative bg-white rounded-[2.5rem] border border-slate-200 px-10 pt-16 pb-12 shadow-[0_20px_40px_-20px_rgba(15,23,42,0.15)]"
-          >
-            <div className="absolute -top-20 left-1/2 -translate-x-1/2">
-              <div className="profile-photo w-44 h-56 rounded-[120px_120px_40px_40px] overflow-hidden border border-slate-300 bg-white shadow-md">
-                <img
-                  src={p.image}
-                  alt={p.name}
-                  className="w-full h-full object-cover "
-                />
-              </div>
-            </div>
+  {people.map((p) => (
+    <div
+      key={p.name}
+      className="profile-card relative rounded-[2.5rem] overflow-hidden border border-slate-200 shadow-[0_20px_40px_-20px_rgba(15,23,42,0.15)]"
+    >
+      {/* Background Image Card */}
+      <div
+        className="absolute inset-0 scale-110"
+        style={{
+          backgroundImage: `url(${p.image})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          filter: "blur(18px)",
+        }}
+      />
 
-            <div className="mt-20">
-              <h3 className="text-2xl font-semibold text-slate-900 mb-4">
-                {p.name}
-              </h3>
+      {/* Overlay supaya teks tetap terbaca */}
+      <div className="absolute inset-0 bg-white/80 backdrop-blur-sm" />
 
-              <p className="text-slate-600 leading-relaxed text-[15px] max-w-sm mx-auto">
-                {p.parents}
-              </p>
-            </div>
-
-            <div className="mt-10 flex justify-center">
-              <span className="w-12 h-[1px] bg-slate-300" />
-            </div>
+      {/* Content */}
+      <div className="relative px-10 pt-16 pb-12">
+        <div className="absolute -top-20 left-1/2 -translate-x-1/2">
+          <div className="profile-photo w-44 h-56 rounded-[120px_120px_40px_40px] overflow-hidden border border-slate-300 bg-white shadow-md">
+            <img
+              src={p.image}
+              alt={p.name}
+              className="w-full h-full object-cover"
+            />
           </div>
-        ))}
+        </div>
+
+        <div className="mt-20 text-center">
+          <h3 className="text-2xl font-semibold text-slate-900 mb-4">
+            {p.name}
+          </h3>
+
+          <p className="text-slate-600 leading-relaxed text-[15px] max-w-sm mx-auto">
+            {p.parents}
+          </p>
+        </div>
+
+        <div className="mt-10 flex justify-center">
+          <span className="w-12 h-[1px] bg-slate-300" />
+        </div>
       </div>
+    </div>
+  ))}
+      </div>
+
     </section>
   );
 }
