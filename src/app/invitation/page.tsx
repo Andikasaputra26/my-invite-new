@@ -14,6 +14,8 @@ import MusicButton from "./components/MusicButton";
 import SmoothScroll from "./components/SmoothScroll";
 import ScrollReveal from "./components/ScrollReveal";
 import ProfileCard from "./components/ProfileCard";
+import GroomCard from "./components/GroomCard";
+import BrideCard from "./components/BrideCard";
 
 const images = [
   "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
@@ -21,23 +23,15 @@ const images = [
   "https://images.unsplash.com/photo-1519681393784-d120267933ba",
 ];
 
-interface Props {
-  name: string;
-  fullName: string;
-  image: string;
-  description: string[];
-  username: string;
-}
-
-
 export default function Home(): JSX.Element {
   const [opened, setOpened] = useState<boolean>(false);
-  const [img, setImg] = useState<string | null>(null);
+  const [img1, setImg1] = useState<string | null>(null);
+  const [img2, setImg2] = useState<string | null>(null);
 
-  // pilih gambar random hanya di client
   useEffect(() => {
-    const random = images[Math.floor(Math.random() * images.length)];
-    setImg(random);
+    const shuffled = [...images].sort(() => 0.5 - Math.random());
+    setImg1(shuffled[0]);
+    setImg2(shuffled[1] ?? shuffled[0]);
   }, []);
 
   return (
@@ -61,21 +55,15 @@ export default function Home(): JSX.Element {
           <Couple />
         </ScrollReveal>
 
-        {img && (
+         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 max-w-5xl mx-auto px-6">
           <ScrollReveal>
-            <ProfileCard
-              name="Alif"
-              fullName="Muhammad Nur Alif, S.T"
-              image={img}
-              description={[
-                "Anak ke 3 dari 3 bersaudara",
-                "Bpk. Rukman Saleh, S.Km &",
-                "Ibu Hj. St. Hajrah",
-              ]}
-              username="@Mhmmd_nuralif"
-            />
+            <GroomCard />
           </ScrollReveal>
-        )}
+
+          <ScrollReveal>
+            <BrideCard />
+          </ScrollReveal>
+        </div>
 
         <ScrollReveal>
           <Event />
