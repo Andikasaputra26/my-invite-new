@@ -60,9 +60,9 @@ export default function Home(): JSX.Element {
         </ScrollReveal>
 
         <ScrollReveal>
-          <TiltCard>
+          {/* <TiltCard> */}
             <Gallery />
-          </TiltCard>
+          {/* </TiltCard> */}
         </ScrollReveal>
 
         <ScrollReveal>

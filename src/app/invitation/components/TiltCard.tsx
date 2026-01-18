@@ -9,7 +9,6 @@ type Props = {
 export default function TiltCard({ children }: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
 
-  // Desktop (mouse)
   function handleMove(e: React.MouseEvent<HTMLDivElement>) {
     const el = ref.current;
     if (!el) return;
@@ -32,7 +31,6 @@ export default function TiltCard({ children }: Props) {
       "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)";
   }
 
-  // Mobile (gyro)
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -54,7 +52,6 @@ export default function TiltCard({ children }: Props) {
       window.addEventListener("deviceorientation", handleOrientation);
     };
 
-    // iOS membutuhkan izin
     const AnyDeviceOrientation = DeviceOrientationEvent as unknown as {
       requestPermission?: () => Promise<"granted" | "denied">;
     };
@@ -65,7 +62,6 @@ export default function TiltCard({ children }: Props) {
           if (state === "granted") enable();
         })
         .catch(() => {
-          /* user denied */
         });
     } else {
       enable();
