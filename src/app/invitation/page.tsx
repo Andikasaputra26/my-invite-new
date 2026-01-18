@@ -30,55 +30,60 @@ export default function Home(): JSX.Element {
         </Suspense>
       )}
 
-      <main
-        className={`transition-all duration-[1500ms] ease-out ${
-          opened ? "opacity-100 translate-y-0" : "opacity-0 translate-y-24"
-        }`}
-      >
-        <Hero />
+      {opened && (
+        <main className="opacity-0 translate-y-24 animate-[pageIn_1.5s_ease-out_forwards]">
+          <Hero />
 
-        <ScrollReveal>
-          <Couple />
-        </ScrollReveal>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 max-w-5xl mx-auto px-6">
           <ScrollReveal>
-            <TiltCard>
-              <GroomCard />
-            </TiltCard>
+            <Couple />
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 max-w-5xl mx-auto px-6">
+            <ScrollReveal>
+              <TiltCard>
+                <GroomCard />
+              </TiltCard>
+            </ScrollReveal>
+
+            <ScrollReveal>
+              <TiltCard>
+                <BrideCard />
+              </TiltCard>
+            </ScrollReveal>
+          </div>
+
+          <ScrollReveal>
+            <Event />
           </ScrollReveal>
 
           <ScrollReveal>
-            <TiltCard>
-              <BrideCard />
-            </TiltCard>
-          </ScrollReveal>
-        </div>
-
-        <ScrollReveal>
-          <Event />
-        </ScrollReveal>
-
-        <ScrollReveal>
-          {/* <TiltCard> */}
             <Gallery />
-          {/* </TiltCard> */}
-        </ScrollReveal>
+          </ScrollReveal>
 
-        <ScrollReveal>
-          <Location />
-        </ScrollReveal>
+          <ScrollReveal>
+            <Location />
+          </ScrollReveal>
 
-        <ScrollReveal>
-          <RSVP />
-        </ScrollReveal>
+          <ScrollReveal>
+            <RSVP />
+          </ScrollReveal>
 
-        <ScrollReveal>
-          <Footer />
-        </ScrollReveal>
-      </main>
+          <ScrollReveal>
+            <Footer />
+          </ScrollReveal>
+        </main>
+      )}
 
-      <MusicButton />
+      {opened && <MusicButton />}
+
+      <style jsx global>{`
+        @keyframes pageIn {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </>
   );
 }

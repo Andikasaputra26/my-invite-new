@@ -1,16 +1,16 @@
-import { Playfair_Display, Montserrat } from "next/font/google";
+import { Great_Vibes, Poppins } from "next/font/google";
 import "./globals.css";
 
-const playfair = Playfair_Display({
+const greatVibes = Great_Vibes({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-playfair",
+  weight: ["400"],
+  variable: "--font-display",
 });
 
-const montserrat = Montserrat({
+const poppins = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
-  variable: "--font-montserrat",
+  variable: "--font-body",
 });
 
 export const metadata = {
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="id" suppressHydrationWarning>
       <body
-        className={`${playfair.variable} ${montserrat.variable}`}
+        className={`${greatVibes.variable} ${poppins.variable} antialiased`}
         suppressHydrationWarning
       >
         {children}

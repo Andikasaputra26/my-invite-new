@@ -37,15 +37,28 @@ const items = [
 
 export default function Gallery() {
   const ref = useRef<HTMLElement | null>(null);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
   const [active, setActive] = useState<null | { img: string; video: string }>(
     null
   );
-
 
   useEffect(() => {
     if (!ref.current) return;
 
     const ctx = gsap.context(() => {
+      // Animasi judul
+      gsap.from(titleRef.current, {
+        opacity: 0,
+        y: 40,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top 80%",
+        },
+      });
+
+      // Animasi item gallery
       gsap.from(".gallery-item", {
         opacity: 0,
         y: 60,
@@ -65,33 +78,47 @@ export default function Gallery() {
   return (
     <>
       <section ref={ref} className="py-24 bg-white text-center overflow-hidden">
-        <h2 className="text-4xl text-black mb-12">Galeri Kenangan</h2>
+        <h2
+          ref={titleRef}
+          className="text-4xl text-black mb-12"
+        >
+          Galeri Kenangan
+        </h2>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6 max-w-6xl mx-auto px-4 sm:px-6">
-          {items.map((item, i) => (
-            <div
-              key={i}
-              onClick={() => setActive(item)}
-              className="gallery-item group relative aspect-[3/4] rounded-2xl overflow-hidden shadow-lg cursor-pointer"
-            >
-              <img
-                src={item.img}
-                alt="Gallery"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition" />
-            </div>
-          ))}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 auto-rows-[140px] gap-4 sm:gap-6 max-w-6xl mx-auto px-4 sm:px-6 [grid-auto-flow:dense]">
+          {items.map((item, i) => {
+            const variant =
+              i % 7 === 0
+                ? "col-span-2 row-span-2"
+                : i % 5 === 0
+                ? "row-span-2"
+                : i % 3 === 0
+                ? "col-span-2"
+                : "";
+
+            return (
+              <div
+                key={i}
+                onClick={() => setActive(item)}
+                className={`gallery-item group relative ${variant} rounded-2xl overflow-hidden shadow-lg cursor-pointer`}
+              >
+                <img
+                  src={item.img}
+                  alt="Gallery"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition" />
+              </div>
+            );
+          })}
         </div>
       </section>
 
-      {/* Lightbox dengan Video Background */}
       {active && (
         <div
           onClick={() => setActive(null)}
           className="fixed inset-0 z-50 flex items-center justify-center p-6"
         >
-          {/* Video Background sesuai gambar */}
           <video
             key={active.video}
             autoPlay
@@ -113,7 +140,6 @@ export default function Gallery() {
         </div>
       )}
 
-      {/* Animasi pop sederhana */}
       <style jsx global>{`
         @keyframes zoomIn {
           from {
