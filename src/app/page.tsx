@@ -7,6 +7,7 @@ import PricingSection from "@/components/PricingSection";
 import PromoSection from "@/components/PromoSection";
 import TestimonialSection from "@/components/TestimonialSection";
 import Footer from "@/components/Footer";
+import ChatbotAI from "@/components/ChatbotAI";
 
 export default function Home() {
   return (
@@ -37,6 +38,9 @@ export default function Home() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Chatbot AI */}
+      <ChatbotAI />
     </main>
   );
 }
